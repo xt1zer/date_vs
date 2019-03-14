@@ -34,6 +34,8 @@ public:
     const bool operator==(const Date &) const;
     const bool operator!=(const Date &) const;
 
+	Date & operator=(const Date &);
+
     void print_date() const; //вывод даты на экран
     void set_date(const short int & year, const short int & month, const short int & day); //изменение даты на новые значения из параметров
     const bool is_leap_year() const; //идентификация високосного года, возвращает ИСТИНА/ЛОЖЬ

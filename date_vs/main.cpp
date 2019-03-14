@@ -13,10 +13,12 @@ int main() {
     Employee economist("Garry", "Hanson", "Accountant", "", "Economics", Date(1993, 5, 3), Date(2003, 9, 8), 12);
     Employee scientist("Melody", "Brook", "Scientist", "Junior ", "Physics", Date(1995, 10, 15), Date(2017, 4, 11), 18);
 
-    Employee arr[4]{trainee, test, economist};
-    arr[3] = scientist;
+    Employee arr[4]{economist, trainee, scientist, test};
 
-    arr[1].print_info();
+	t = economist;
+	t.print_info();
+
+    //arr[1].print_info();
     
 //    test.print_info();
     cout << arr[1].compute_experience(today) << endl;
@@ -27,6 +29,8 @@ int main() {
     scientist.set_salary_by_rank();
     scientist.print_info();
 
-//    sort_by_birth(arr, 4);
+    sort_by_birth(arr, 4);
+
+	//system("pause");
     return 0;
 }

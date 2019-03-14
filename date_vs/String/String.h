@@ -1,4 +1,5 @@
 #pragma once
+#define _CRT_SECURE_NO_WARNINGS
 #include <cstring>
 
 class String {
@@ -23,6 +24,8 @@ public:
 
 
     const bool operator==(const String &);
+
+	String & operator=(const String &);
 
     const size_t length() const;
     void print() const;

@@ -7,19 +7,21 @@
 
 Date::Date() : m_year(1901), m_month(1), m_day(1) {}
 
-Date::Date(const short int &year, const short int &month, const short int &day) : m_year(year), m_month(month),
+Date::Date(const short int & year, const short int &month, const short int &day) : m_year(year), m_month(month),
                                                                                   m_day(day) {}
 
-Date::Date(const Date &copy) : m_year(copy.m_year), m_month(copy.m_month), m_day(copy.m_day) {}
+Date::Date(const Date & copy) : m_year(copy.m_year), m_month(copy.m_month), m_day(copy.m_day) {}
 
 const bool Date::operator<(const Date &d2) const {
-    return m_year < d2.m_year || m_month < d2.m_month
-           || (m_year == d2.m_year && m_month == d2.m_month && m_day < d2.m_day);
+    return (m_year < d2.m_year)
+		|| (m_year == d2.m_year && m_month < d2.m_month)
+		|| (m_year == d2.m_year && m_month == d2.m_month && m_day < d2.m_day);
 }
 
 const bool Date::operator>(const Date &d2) const {
-    return (m_year > d2.m_year) || (m_year == d2.m_year && m_month > d2.m_month)
-           || (m_year == d2.m_year && m_month == d2.m_month && m_day > d2.m_day);
+    return (m_year > d2.m_year)
+		|| (m_year == d2.m_year && m_month > d2.m_month)
+		|| (m_year == d2.m_year && m_month == d2.m_month && m_day > d2.m_day);
 }
 
 const bool Date::operator<=(const Date &d2) const {
@@ -31,11 +33,19 @@ const bool Date::operator>=(const Date &d2) const {
 }
 
 const bool Date::operator==(const Date &d2) const {
-    return this->m_year == d2.m_year && this->m_month == d2.m_month && this->m_day == d2.m_day;
+    return m_year == d2.m_year && m_month == d2.m_month && m_day == d2.m_day;
 }
 
 const bool Date::operator!=(const Date &d2) const {
     return !(*this == d2);
+}
+
+Date & Date::operator=(const Date & d) {
+	m_year = d.m_year;
+	m_month = d.m_month;
+	m_day = d.m_day;
+
+	return *this;
 }
 
 void Date::print_date() const {
@@ -191,7 +201,7 @@ Date Date::past_date(long int days) const {
 }
 
 const unsigned long int count_days_between_dates(const Date &d1, const Date &d2) {
-    return abs(d1.count_days() - d2.count_days());
+    return abs((long int)(d1.count_days() - d2.count_days()));
 }
 
 int compare(const void *a, const void *b) {

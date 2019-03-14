@@ -5,7 +5,6 @@
 class Employee {
 
     friend void sort_by_birth(Employee * array, const int & num);
-    friend void sort_by_hiring(Employee * array, const int & num);
 
 private:
 
@@ -24,6 +23,8 @@ public:
     Employee(const String & name, const String & surname, const String & position, const String & rank, const String & education, const Date & birthDate, const Date & employmentDate, const float & salary);
     Employee(const Employee &);
     ~Employee();
+
+	Employee & operator=(const Employee &);
 
     void print_info() const;
     void set_position(const String &);

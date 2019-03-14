@@ -39,6 +39,18 @@ const bool String::operator==(const String & rhs) {
     return true;
 }
 
+String & String::operator=(const String & str) {
+	delete[] m_str;
+	m_str = nullptr;
+
+	m_str = new char[str.m_len + 1];
+
+	copy(str.m_str, 0);
+	m_len = str.m_len;
+
+	return *this;
+}
+
 void String::copy(const char s[], const size_t & pos) {
     if (m_len - pos < strlen(s)) // length overflow
         return;
@@ -47,8 +59,8 @@ void String::copy(const char s[], const size_t & pos) {
         m_str[i] = s[i - pos];
 }
 
-String* String::divide(const char delim[], const size_t & count) const {
-    char src[m_len + 1];
+String * String::divide(const char delim[], const size_t & count) const {
+    char * src = new char[m_len + 1];
     strcpy(src, m_str);
 
     String * words = new String[count];
@@ -70,6 +82,8 @@ String* String::divide(const char delim[], const size_t & count) const {
         strcpy(words[i].m_str, token);
     }
 
+	delete[] src;
+
     return words;
 }
 
@@ -82,7 +96,7 @@ void String::print() const {
 }
 
 void String::append(const char s[]) {
-    char oldStr[m_len + 1];
+    char * oldStr = new char[m_len + 1];
     strcpy(oldStr, m_str);
 
     delete[] m_str;
@@ -92,6 +106,8 @@ void String::append(const char s[]) {
     m_str = new char[m_len + 1];
     copy(oldStr, 0);
     copy(s, m_len - strlen(s));
+
+	delete[] oldStr;
 }
 
 void String::append(const String & s) { // different parameter
@@ -102,12 +118,15 @@ String String::substr(const unsigned int & pos, const unsigned int & num) const 
     if (m_len - pos < num) // length overflow
         return String("");
 
-    char res[num + 1];
+	char * resStr = new char[num + 1];
 
     for (size_t i(0); i < num; ++i)
-        res[i] = m_str[i + pos];
+        resStr[i] = m_str[i + pos];
 
-    return String(res);
+	String out(resStr);
+	delete[] resStr;
+
+	return out;
 }
 
 String * String::split(const char & delim) const {
@@ -128,10 +147,10 @@ void String::replace(const char from[], const char to[]) {
     char * str = strstr(m_str, from);
 
     if (strstr(m_str, from)) { // hell of a job
-        char afterStr[strlen(str) - strlen(from) + 1];
+        char * afterStr = new char[strlen(str) - strlen(from) + 1];
         strcpy(afterStr, &str[strlen(from)]);
 
-        char beforeStr[m_len - strlen(str) + 1];
+        char * beforeStr = new char[m_len - strlen(str) + 1];
         strncpy(beforeStr, m_str, m_len - strlen(str));
         beforeStr[m_len - strlen(str)] = '\0';
 
@@ -145,5 +164,8 @@ void String::replace(const char from[], const char to[]) {
         copy(beforeStr, 0);
         copy(to, beforeInd);
         copy(afterStr, afterInd);
+
+		delete[] beforeStr;
+		delete[] afterStr;
     }
 }

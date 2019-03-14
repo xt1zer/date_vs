@@ -1,7 +1,8 @@
 #include "Employee.h"
 #include <iostream>
 #include <algorithm>
-using std::cout, std::endl;
+using std::cout;
+using std::endl;
 
 Employee::Employee() {
     this->name = new String(""); // prolly same as String()
@@ -38,10 +39,39 @@ Employee::Employee(const Employee & copy) {
 
 Employee::~Employee() {
     delete name; delete surname; delete position; delete rank; delete education;
-    name = surname = position = education = nullptr;
+    name = surname = position = rank = education = nullptr;
     birthDate = Date();
     employmentDate = Date();
     salary = 0.0;
+}
+
+Employee & Employee::operator=(const Employee & tmp) {
+	delete name;
+	delete surname;
+	delete position;
+	delete rank;
+	delete education;
+
+	name = new String(*tmp.name);
+	//name = tmp.name;
+
+	surname = new String(*tmp.surname);
+	//surname = tmp.surname;
+
+	position = new String(*tmp.position);
+	//position = tmp.position;
+
+	rank = new String(*tmp.rank);
+	//rank = tmp.rank;
+
+	education = new String(*tmp.education);
+	//education = tmp.education;
+	
+	birthDate = tmp.birthDate;
+	employmentDate = tmp.employmentDate;
+	salary = tmp.salary;
+
+	return *this;
 }
 
 void Employee::print_info() const {
@@ -109,9 +139,5 @@ void Employee::set_salary_by_rank() {
 }
 
 void sort_by_birth(Employee * array, const int & num) {
-    std::sort(array, array + (num - 1), [](const Employee & a, const Employee & b) -> bool { return a.birthDate < b.birthDate; });
-}
-
-void sort_by_hiring(Employee * array, const int & num) {
-    std::sort(array, array + (num - 1), [](const Employee & a, const Employee & b) -> bool { return a.employmentDate < b.employmentDate; });
+    std::sort(array, array + (num - 1), [](const Employee & a, const Employee & b) -> int { return a.birthDate < b.birthDate; });
 }
