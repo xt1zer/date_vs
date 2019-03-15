@@ -41,9 +41,11 @@ const bool Date::operator!=(const Date &d2) const {
 }
 
 Date & Date::operator=(const Date & d) {
-	m_year = d.m_year;
-	m_month = d.m_month;
-	m_day = d.m_day;
+	if (this != &d) {
+		m_year = d.m_year;
+		m_month = d.m_month;
+		m_day = d.m_day;
+	}
 
 	return *this;
 }

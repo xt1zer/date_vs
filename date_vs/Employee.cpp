@@ -5,10 +5,11 @@ using std::cout;
 using std::endl;
 
 Employee::Employee() {
-    this->name = new String(""); // prolly same as String()
-    this->surname = new String("");
-    this->position = new String("");
-    this->education = new String("");
+    name = new String;
+    surname = new String;
+    position = new String;
+	rank = new String;
+    education = new String;
 }
 
 Employee::Employee(const String & name, const String & surname, const String & position, const String & rank, const String & education, const Date & birthDate, const Date & employmentDate, const float & salary) {
@@ -25,16 +26,16 @@ Employee::Employee(const String & name, const String & surname, const String & p
 }
 
 Employee::Employee(const Employee & copy) {
-    this->name = new String(*copy.name);
-    this->surname = new String(*copy.surname);
-    this->position = new String(*copy.position);
-    this->rank = new String(*copy.rank);
-    this->education = new String(*copy.education);
+    name = new String(*copy.name);
+    surname = new String(*copy.surname);
+    position = new String(*copy.position);
+    rank = new String(*copy.rank);
+    education = new String(*copy.education);
 
-    this->birthDate = copy.birthDate;
-    this->employmentDate = copy.employmentDate;
+    birthDate = copy.birthDate;
+    employmentDate = copy.employmentDate;
 
-    this->salary = copy.salary;
+    salary = copy.salary;
 }
 
 Employee::~Employee() {
@@ -42,34 +43,27 @@ Employee::~Employee() {
     name = surname = position = rank = education = nullptr;
     birthDate = Date();
     employmentDate = Date();
-    salary = 0.0;
+    salary = 0.0f;
 }
 
 Employee & Employee::operator=(const Employee & tmp) {
-	delete name;
-	delete surname;
-	delete position;
-	delete rank;
-	delete education;
+	if (this != &tmp) {
+		delete name;
+		delete surname;
+		delete position;
+		delete rank;
+		delete education;
 
-	name = new String(*tmp.name);
-	//name = tmp.name;
+		name = new String(*tmp.name);
+		surname = new String(*tmp.surname);
+		position = new String(*tmp.position);
+		rank = new String(*tmp.rank);
+		education = new String(*tmp.education);
 
-	surname = new String(*tmp.surname);
-	//surname = tmp.surname;
-
-	position = new String(*tmp.position);
-	//position = tmp.position;
-
-	rank = new String(*tmp.rank);
-	//rank = tmp.rank;
-
-	education = new String(*tmp.education);
-	//education = tmp.education;
-	
-	birthDate = tmp.birthDate;
-	employmentDate = tmp.employmentDate;
-	salary = tmp.salary;
+		birthDate = tmp.birthDate;
+		employmentDate = tmp.employmentDate;
+		salary = tmp.salary;
+	}
 
 	return *this;
 }

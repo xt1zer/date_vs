@@ -2,7 +2,7 @@
 #include <iostream>
 
 String::String() : m_len(0) {
-    m_str = new char[0]; // it's empty, right?
+	m_str = new char[0]; // it's empty, right?
 }
 
 String::String(const char str[]) : m_len(strlen(str)) {
@@ -40,13 +40,15 @@ const bool String::operator==(const String & rhs) {
 }
 
 String & String::operator=(const String & str) {
-	delete[] m_str;
-	m_str = nullptr;
+	if (this != &str) {
+		delete[] m_str;
+		m_str = nullptr;
 
-	m_str = new char[str.m_len + 1];
+		m_str = new char[str.m_len + 1];
 
-	copy(str.m_str, 0);
-	m_len = str.m_len;
+		copy(str.m_str, 0);
+		m_len = str.m_len;
+	}
 
 	return *this;
 }
