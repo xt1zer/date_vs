@@ -2,7 +2,7 @@
 #include <iostream>
 
 String::String() : m_len(0) {
-	m_str = new char[0]; // it's empty, right?
+	m_str = nullptr;
 }
 
 String::String(const char str[]) : m_len(strlen(str)) {
